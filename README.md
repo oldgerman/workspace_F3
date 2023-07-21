@@ -14,7 +14,7 @@
 
 ### 步骤
 
-按照 CubeMX 自动生成HAL库的 F303CCTx_HAL_TEMPLATE 工程目录组织需要构建标准库 F303CCTx_STD_TEMPLATE 工程目录，涉及到的两个工程文件夹在本仓库根目录是也（若仓库根目录有其他无关的文件夹请忽视），开始操作：
+按照 CubeMX 自动生成 HAL 库的 F303CCTx_HAL_TEMPLATE 工程目录组织需要构建的标准库 F303CCTx_STD_TEMPLATE 工程目录，涉及到的两个工程文件夹在本仓库根目录是也（若仓库根目录有其他无关的文件夹请忽视），开始操作：
 
 1. 打开CubeIDE，使用cubemx自动生成一个stm32f303cctx随便什么名字的空工程，本示例的工程是 F303CCTx_HAL_TEMPLATE，这是HAL库工程目录
 2. 新建一个文件夹，命名为 F303CCTx_STD_TEMPLATE，这就是标准库模板工程目录
@@ -28,15 +28,14 @@
 9. 使用 CubeIDE 打开 F303CCTx_STD_TEMPLATE 工程，右键工程属性，在 C/C++ General 的 Paths and Symbols 选项下重新设置 工程的 includes 和 Source Location 路径。还要在 Symbols 里添加 USE_STDPERIPH_DRIVER 和 USE_FULL_ASSERT两个预定义宏。USE_STDPERIPH_DRIVER 用于 stm32f30x.h 中 启用 #include "stm32f30x_conf.h"。USE_FULL_ASSERT 用于开启 stm32f30x_conf.h 的 assert_param() 宏。
 10. 编译 F303CCTx_STD_TEMPLATE 工程，会在工程根目录自动生成 Debug 文件夹和其内部的 makfile 文件夹，可以一键烧录到单片机，正常使用 CubeIDE 内的调试工具、现场表达式，Build Analyzer 等功能。
     但有个bug，如果修改了源码某部分，再次编译，会发现烧录进去的程序还是修改前的版本，
-    这个临时解决方法是删除 Debug 文件夹里的所有文件，但每次都要这么搞很麻烦
-    进一步的解决方法应该是 这个自动生成的 makefile 文件的设置问题，因为不熟悉，等有时间了看看
+    这个临时解决方法是删除 Debug 文件夹里的所有文件，但每次都要这么搞很麻烦，进一步的解决方法应该是 这个自动生成的 makefile 文件的设置问题，因为不熟悉，等有时间了看看
 11. Delay() 函数：最基本的 Delay()  毫秒函数的实现可参考 main.c、main.h、stm32f30x_it.c 的实现
     更进一步可参考野火的在线文档 [19. SysTick—系统定时器](https://doc.embedfire.com/mcu/stm32/f103badao/std/zh/latest/book/SysTick.html)
 ### 关于链接文件和启动文件
 
-启动文件：不使用标准库包里的 gcc 版本的启动文件，使用cubemx自动生成stm32f303cctx空工程的，启动文件得和链接文件配套
+启动文件：不使用标准库包里的 gcc 版本的启动文件，使用cubemx自动生成 F303CCTx_HAL_TEMPLATE 工程 Core/Startup 文件夹里的，启动文件得和链接文件配套
 
-链接文件：使用cubemx自动生成stm32f303cctx空工程根目录的 STM32F303CCTX_FLASH.ld
+链接文件：使用 cubemx 自动生成 F303CCTx_HAL_TEMPLATE 工程根目录的 STM32F303CCTX_FLASH.ld
 
 ### 参考
 
